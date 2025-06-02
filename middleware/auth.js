@@ -1,29 +1,26 @@
 const jwt = require("jsonwebtoken");
 
-function authenticateToken(req, res, next) {
+function authenticate(req, res, next) {
   const authHeader = req.headers.authorization;
-  const token = authHeader && authHeader.split(" ")[1];
+  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    return res.status(401).json({ error: "Missing or invalid token" });
+  }
 
-  if (!token) return res.status(401).json({ error: "Token missing" });
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ error: "Invalid token" });
-
-    req.user = user; // { id, username, role }
+  const token = authHeader.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // { id, username, role }
     next();
-  });
+  } catch (err) {
+    return res.status(403).json({ error: "Invalid or expired token" });
+  }
 }
 
-function requireRole(role) {
-  return (req, res, next) => {
-    if (req.user.role !== role) {
-      return res.status(403).json({ error: "Access denied" });
-    }
-    next();
-  };
+function authorizeAdmin(req, res, next) {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ error: "Access denied: Admins only" });
+  }
+  next();
 }
 
-module.exports = {
-  authenticateToken,
-  requireRole,
-};
+module.exports = { authenticate, authorizeAdmin };
