@@ -1,15 +1,14 @@
-const User = require("../models/User");
+const User = require("../models/user");
 
-async function createUser({ email, passwordHash }) {
-  const user = new User({ email, passwordHash });
-  return await user.save();
+async function findByUsername(username) {
+  return User.findOne({ username });
 }
 
-async function findUserByEmail(email) {
-  return await User.findOne({ email });
+async function createUser(username, passwordHash, role = "user") {
+  return User.create({ username, passwordHash, role });
 }
 
 module.exports = {
+  findByUsername,
   createUser,
-  findUserByEmail,
 };
