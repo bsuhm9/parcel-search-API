@@ -6,4 +6,7 @@ const ParcelSchema = new mongoose.Schema({
   SitusAddress: { type: String },
 });
 
+// Index on OwnerName
+ParcelSchema.index({ OwnerName: 1 });
+
 module.exports = mongoose.model("Parcel", ParcelSchema, "parcels");
