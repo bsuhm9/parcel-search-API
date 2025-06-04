@@ -1,0 +1,32 @@
+[
+  {
+    "address": {
+      "street": "123 Main St",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipCode": "90001"
+    },
+    "condition": "good",
+    "yearBuilt": 1995,
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "squareFeet": 1450,
+    "price": 475000,
+    "description": "Charming 3BR home in a quiet neighborhood"
+  },
+  {
+    "address": {
+      "street": "456 Oak Ave",
+      "city": "Denver",
+      "state": "CO",
+      "zipCode": "80203"
+    },
+    "condition": "excellent",
+    "yearBuilt": 2010,
+    "bedrooms": 4,
+    "bathrooms": 3,
+    "squareFeet": 2100,
+    "price": 650000,
+    "description": "Modern home with mountain views"
+  }
+]

@@ -1,0 +1,25 @@
+const express = require("express");
+const router = express.Router();
+const {
+  listParcels,
+  getParcel,
+  createParcel,
+  updateParcel,
+  deleteParcel,
+  runSavedSearch,
+} = require("../controllers/parcelController");
+
+const { authenticate, authorizeAdmin } = require("../middleware/auth");
+
+// Public routes
+router.get("/", listParcels);
+router.get("/:id", getParcel);
+
+// Admin-only routes
+router.post("/", authenticate, authorizeAdmin, createParcel);
+router.put("/:id", authenticate, authorizeAdmin, updateParcel);
+router.delete("/:id", authenticate, authorizeAdmin, deleteParcel);
+router.get("/search/run/:id", authenticate, runSavedSearch);
+
+module.exports = router;
+//
