@@ -23,11 +23,16 @@ async function findByIdAndDelete(id) {
   return await Parcel.findByIdAndDelete(id);
 }
 
+async function findMatchingParcels(criteria) {
+  return await Parcel.find(criteria).limit(100);
+}
+
 module.exports = {
   createParcel,
   getParcel,
   getParcelById,
   findByIdAndUpdate,
   findByIdAndDelete,
+  findMatchingParcels,
 };
 //

@@ -1,4 +1,6 @@
 const parcelDao = require("../daos/parcelsDao");
+const savedSearchDao = require("../daos/savedSearchDao");
+const yakimaParcelDao = require("../daos/yakimaParcelsDao");
 
 async function listParcels(req, res) {
   const properties = await parcelDao.getParcel(req.query);
@@ -50,11 +52,33 @@ async function deleteParcel(req, res) {
   }
 }
 
+async function runSavedSearch(req, res) {
+  try {
+    const search = await savedSearchDao.getSearchById(req.params.id);
+
+    if (!search) return res.status(404).json({ error: "Search not found" });
+
+    if (search.userId.toString() !== req.user.id && req.user.role !== "admin") {
+      return res
+        .status(403)
+        .json({ error: "User not authorized for this search" });
+    }
+
+    const criteria = search.criteria;
+    const results = await yakimaParcelDao.findByCriteria(criteria); // Use YakimaParcels
+    res.json(results);
+  } catch (err) {
+    console.error("Failed to run saved search", err);
+    res.status(500).json({ error: "Failed to run saved search" });
+  }
+}
+
 module.exports = {
   listParcels,
   getParcel,
   createParcel,
   updateParcel,
   deleteParcel,
+  runSavedSearch,
 };
 //

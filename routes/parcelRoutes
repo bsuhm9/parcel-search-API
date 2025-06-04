@@ -6,6 +6,7 @@ const {
   createParcel,
   updateParcel,
   deleteParcel,
+  runSavedSearch,
 } = require("../controllers/parcelController");
 
 const { authenticate, authorizeAdmin } = require("../middleware/auth");
@@ -18,6 +19,7 @@ router.get("/:id", getParcel);
 router.post("/", authenticate, authorizeAdmin, createParcel);
 router.put("/:id", authenticate, authorizeAdmin, updateParcel);
 router.delete("/:id", authenticate, authorizeAdmin, deleteParcel);
+router.get("/search/run/:id", authenticate, runSavedSearch);
 
 module.exports = router;
 //
