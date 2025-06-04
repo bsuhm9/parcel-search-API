@@ -68,3 +68,36 @@ Work Still To Come
 
 - Much of week 2 listed above
 - Weeks 3 through 5
+- 
+
+PROJECT EVALUATION
+What Worked Well
+DAO and Route Structure: Separating things by using a DAO-based file structure made the project more maintainable and testable. It helped keep the logic clean and modular.
+
+Authentication & Authorization: Implementing authenticate and authorizeAdmin middleware using JWTs was effective. It allowed me to clearly separate access between regular users and admins, and enforce security around sensitive routes (like batch parcel processing).
+
+Testing with Jest & Supertest: Writing comprehensive route tests using Supertest helped validate expected behavior and catch regressions. Mocking functions like batchFetchAndStore gave control over how dependencies behaved during testing.
+
+Express Routing: Routing stayed organized. Using route modules for parcels, Yakima batch fetch, and user auth helped me to build incrementally.
+
+
+What Could Be Improved
+Error Handling: While error messages are included in my code, the logs during tests (e.g., from console.error) can clutter output and could be better managed or mocked during test runs.
+
+Test Readability: Some tests had side effects or setup code (e.g., JWT generation) that could be separated into reusable sections to minimize code duplication.
+
+Front End: A simple front end would allow a more usable product.
+
+
+What I Learned
+How to build secure Express routes using middleware for authentication and authorization.
+
+How to structure code using DAOs and controllers to support separation of concerns and cleaner code reuse.
+
+How to handle complex testing scenarios involving role-based access control with web tokens.
+
+
+What I’d Do Differently
+I would try to make the basic routes first in order to stay more organized.  I did get side tracked building the data and gathering it from the county assessor's site in the beginning.
+
+
